@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard Features</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .features-container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    section.feature {
+      margin-bottom: 50px;
+      display: none;
+    }
+    canvas {
+      max-width: 100%;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .button-container {
+      margin-bottom: 30px;
+    }
+    .feature-button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .feature-button:hover {
+      background-color: #2980b9;
+    }
+    mark {
+      background-color: yellow;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="features-container">
+  <h1>📊 Student Learning Dashboard</h1>
+  <p>Explore student data insights and features.</p>
+
+  <div class="button-container">
+    <button class="feature-button" onclick="showFeature('activityType')">Activity Type Breakdown</button>
+    <button class="feature-button" onclick="showFeature('timeSpent')">Time Spent on Activities</button>
+    <button class="feature-button" onclick="showFeature('quizScores')">Quiz Score Analysis</button>
+    <button class="feature-button" onclick="showFeature('activityLog')">Student Activity Log</button>
+    <button class="feature-button" onclick="showFeature('comingSoon')">More Features Coming Soon</button>
+  </div>
+
+  <section id="activityType" class="feature">
+    <h2>📘 Activity Type Breakdown</h2>
+    <p>Distribution of learning activity types.</p>
+    <canvas id="activityTypeChart"></canvas>
+  </section>
+
+  <section id="timeSpent" class="feature">
+    <h2>⏱️ Time Spent on Activities</h2>
+    <p>How much time students spend on each type of activity.</p>
+    <canvas id="timeSpentChart"></canvas>
+  </section>
+
+  <section id="quizScores" class="feature">
+    <h2>📊 Quiz Score Analysis</h2>
+    <p>Track performance through quiz scores.</p>
+    <canvas id="quizScoresChart"></canvas>
+  </section>
+
+  <section id="activityLog" class="feature">
+    <h2>🧑‍🎓 Student Activity Log</h2>
+    <p>All recorded activities grouped by student ID.</p>
+    <input type="text" id="studentSearch" placeholder="Search by Student ID, Course, or Activity..." oninput="filterStudentLog()" style="margin-bottom: 20px; padding: 10px; width: 100%; max-width: 300px; border: 1px solid #ccc; border-radius: 5px;">
+    <div id="groupedActivityLog"></div>
+  </section>
+
+  <section id="comingSoon" class="feature">
+    <h2>🚀 More Features Coming Soon</h2>
+    <p>We're working on personalized tips, goal tracking, and more insights.</p>
+  </section>
+</div>
+
+<script>
+  function showFeature(featureId) {
+    document.querySelectorAll('.feature').forEach(feature => {
+      feature.style.display = 'none';
+    });
+    document.getElementById(featureId).style.display = 'block';
+  }
+
+  // Chart: Activity Type
+  new Chart(document.getElementById('activityTypeChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Quiz', 'Video', 'Forum', 'Group Work', 'Other'],
+      datasets: [{
+        label: 'Activity Count',
+        data: [10, 20, 8, 5, 3],
+        backgroundColor: ['#3498db', '#f39c12', '#2ecc71', '#e74c3c', '#9b59b6']
+      }]
+    }
+  });
+
+  // Chart: Time Spent
+  new Chart(document.getElementById('timeSpentChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Quiz', 'Video', 'Forum', 'Group Work', 'Other'],
+      datasets: [{
+        label: 'Time Spent (mins)',
+        data: [120, 240, 60, 90, 30],
+        backgroundColor: '#36a2eb'
+      }]
+    },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+
+  // Chart: Quiz Scores
+  new Chart(document.getElementById('quizScoresChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4', 'Quiz 5'],
+      datasets: [{
+        label: 'Score',
+        data: [80, 90, 70, 85, 95],
+        backgroundColor: '#8e44ad'
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true, max: 100 }
+      }
+    }
+  });
+
+  // Helper: clean key names
+  function cleanKeys(entry) {
+    let cleanedEntry = {};
+    for (let key in entry) {
+      cleanedEntry[key.trim()] = entry[key];
+    }
+    return cleanedEntry;
+  }
+
+  // Highlight matched text
+  function highlightMatch(text, keyword) {
+    const index = text.toLowerCase().indexOf(keyword.toLowerCase());
+    if (index === -1) return text;
+    const matched = text.substring(index, index + keyword.length);
+    return text.substring(0, index) + "<mark>" + matched + "</mark>" + text.substring(index + keyword.length);
+  }
+
+  // Filter & display log
+  function filterStudentLog() {
+    const searchTerm = document.getElementById("studentSearch").value.toLowerCase();
+    const container = document.getElementById("groupedActivityLog");
+    container.innerHTML = "";
+
+    const sortedStudentIds = Object.keys(window.groupedData).sort();
+    let found = false;
+
+    sortedStudentIds.forEach(studentId => {
+      const entries = window.groupedData[studentId];
+      const matches = entries.filter(entry =>
+        studentId.toLowerCase().includes(searchTerm) ||
+        entry.course.toLowerCase().includes(searchTerm) ||
+        entry.activity.toLowerCase().includes(searchTerm)
+      );
+
+      if (matches.length > 0) {
+        found = true;
+        const studentDiv = document.createElement("div");
+        const highlightedId = highlightMatch(studentId, searchTerm);
+        studentDiv.innerHTML = `<h3>👤 Student ID: ${highlightedId}</h3><ul></ul>`;
+        const ul = studentDiv.querySelector("ul");
+
+        matches.forEach(item => {
+          const course = highlightMatch(item.course, searchTerm);
+          const activity = highlightMatch(item.activity, searchTerm);
+          const li = document.createElement("li");
+          li.innerHTML = `Course: ${course} | Activity: ${activity} | Time: ${item.time} mins | Score: ${item.score}`;
+          ul.appendChild(li);
+        });
+
+        container.appendChild(studentDiv);
+      }
+    });
+
+    if (!found) {
+      container.innerHTML = "<p>No matching data found.</p>";
+    }
+  }
+
+  // Fetch activity log data
+  const apiUrl = "https://script.google.com/macros/s/AKfycbx7gXhXftSn5a9b0IBekqDAK1w5yiQagsM8mt-w1HohecQlyVWL7fTQaAaXajTuDJAF/exec";
+  
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      window.groupedData = {};
+
+      data.forEach(entry => {
+        const cleaned = cleanKeys(entry);
+        const studentId = cleaned["Student ID"] || "Unknown Student";
+
+        if (!window.groupedData[studentId]) {
+          window.groupedData[studentId] = [];
+        }
+
+        window.groupedData[studentId].push({
+          course: cleaned["Course Name"] || "Unknown Course",
+          activity: cleaned["Activity Type"] || "Unknown",
+          time: cleaned["Time Spent (Minutes)"] || "0",
+          score: cleaned["Quiz Score (Optional, only for Quiz)"] || "N/A"
+        });
+      });
+
+      filterStudentLog(); // Show full log by default
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      document.getElementById("groupedActivityLog").innerText = "Failed to load activity data.";
+    });
+
+</script>
+
+</body>
+</html>
