@@ -3,7 +3,7 @@ name: Azure Static Web App Deploy
 on:
   push:
     branches:
-      - main  # Or your default branch
+      - main
 
 jobs:
   deploy:
@@ -21,6 +21,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Bigdata'        # Your Azure Web App name
+          app-name: 'Bigdata'
           slot-name: 'production'
-          package: '.'               # Path to your static files (usually root)
+          package: '.'
