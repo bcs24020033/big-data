@@ -1,0 +1,88 @@
+/* General Reset and Body Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Intro Page Container */
+.intro-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* Button Styling */
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+/* Features Page Container */
+.features-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.features-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.features-container h3 {
+  font-size: 1.8rem;
+  margin-top: 20px;
+}
+
+.features-container p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}

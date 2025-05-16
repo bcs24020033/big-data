@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    /* Header Styling */
+    header {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    /* Introduction Section */
+    .intro {
+      background: #ecf0f1;
+      padding: 80px 20px;
+      text-align: center;
+      background-image: url('https://via.placeholder.com/1200x600'); /* Add background image */
+      background-size: cover;
+      color: white;
+      border-bottom: 3px solid #2c3e50;
+    }
+    .intro h2 {
+      font-size: 36px;
+      color: white;
+    }
+    .intro p {
+      font-size: 22px;
+      color: #34495e;
+      margin: 10px 0;
+    }
+    
+    /* Blank Space above Get Started button */
+    .get-started-space {
+      margin-top: 50px; /* Adjust this value to control the space */
+    }
+
+    .get-started {
+      background-color: #f39c12;
+      color: white;
+      padding: 18px 35px;
+      font-size: 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease;
+    }
+    .get-started:hover {
+      background-color: #e67e22;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .intro h2 {
+        font-size: 28px;
+      }
+      .intro p {
+        font-size: 18px;
+      }
+      .get-started {
+        padding: 14px 25px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>📊 Student Learning Dashboard</h1>
+  </header>
+
+  <!-- Introduction Section -->
+  <section class="intro" id="intro">
+    <h2>Welcome to the Student Learning Dashboard!</h2>
+    <p>
+      This dashboard is designed to help students and educators monitor and analyze learning activities in a more interactive and insightful way.
+      It offers real-time data visualizations and performance analytics to help improve student learning outcomes.
+    </p>
+    <p>
+      With features like tracking activity types, time spent on tasks, and quiz scores, the Student Learning Dashboard provides a comprehensive overview of a student's progress.
+      Whether you're looking to improve your study habits or analyze course performance, this dashboard gives you all the tools you need to succeed.
+    </p>
+
+    <!-- Blank Space before Get Started Button -->
+    <div class="get-started-space"></div>
+
+    <!-- Get Started Button -->
+    <a href="features.html" class="get-started">Get Started</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Student Dashboard | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
